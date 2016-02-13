@@ -7,6 +7,7 @@ import bwt
 
 # burrow wheeler transform
 bw  = bwt.SuffixArrayBurrowsWheeler()
+
 # burrow wheeler inverse
 bwi = bwt.CheckpointingBurrowsWheeler()
 
@@ -23,6 +24,7 @@ def index(data):
     #return FMSimpleIndex(data)
     #return FMFullIndex(data)
     return FMCheckpointing(data)
+
 
 class FMSimpleIndex(object):   
     def __init__(self, data):
@@ -45,7 +47,7 @@ class FMSimpleIndex(object):
         """ count the occurances of letter qc (rank of qc) upto position idx """
         if not qc in self.occ.keys(): return 0
         c = 0
-        for i in xrange(idx):
+        for i in range(idx):
             if self.data[i] == qc:
                 c += 1
         return c
@@ -126,6 +128,7 @@ class FMSimpleIndex(object):
         output.append((last, k))
         return output
 
+
 class FMFullIndex(FMSimpleIndex):
     """ creates full LF index for each letter, space inefficient """
     
@@ -155,7 +158,8 @@ class FMFullIndex(FMSimpleIndex):
     
     def _lf(self, idx, qc):
         return self.FM[(idx,qc)]
-    
+
+
 class FMCheckpointing(FMSimpleIndex):
     """ creates LF index with checkpoints """
     
